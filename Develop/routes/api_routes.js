@@ -1,15 +1,25 @@
-var notes = require('../db/notes');
+const express = require("express");
+const notes = require("../db/notes");
 
 module.exports = function (app) {
   app.get("/api/notes", function (req, res) {
-    res.json(notes);
+    notes
+      .getNotes()
+      .then((notes) => res.json(notes))
+      .catch((err) => res.status(500).json(err));
   });
-  
+
   app.post("/api/notes", function (req, res) {
-    notes.push(req.body);
-    res.json(true);
+    notes
+      .addNote(req.body)
+      .then((notes) => res.json(notes))
+      .catch((err) => res.status(500).json(err));
   });
-  app.post("/api/clear", function () {
-    notes = [];
+
+  app.delete("/api/notes/:id", function (req, res) {
+    notes
+      .removeNote(req.params.id)
+      .then(() => res.json({ ok: true }))
+      .catch((err) => res.status(500).json(err));
   });
 };
