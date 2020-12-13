@@ -1,5 +1,5 @@
 
-  # Note Taker
+  # Note Taker.
 
   ## Short Description
   ### This app let users take note on the go and able to delete them form the left section.
